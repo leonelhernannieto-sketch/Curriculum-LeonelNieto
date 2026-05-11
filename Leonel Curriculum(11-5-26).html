@@ -1,0 +1,280 @@
+
+<!-- saved from url=(0065)file:///home/usuario/Descargas/curriculum_vitae_plantilla_v7.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><h2 class="sr-only">Plantilla de currículum vitae interactiva y editable</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+[contenteditable] { outline: none; cursor: text; border-radius: 4px; transition: background 0.15s; }
+[contenteditable]:hover { background: var(--color-background-secondary); }
+[contenteditable]:focus { background: var(--color-background-info); }
+.edit-hint { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 1rem; display: flex; align-items: center; gap: 6px; }
+.cv-wrap { max-width: 680px; margin: 0 auto; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+.cv-header { background: #1a1a2e; padding: 2rem 2rem 1.5rem; display: flex; align-items: flex-start; gap: 1.2rem; }
+.cv-header-info { flex: 1; }
+.cv-header-name { font-size: 26px; font-weight: 500; color: #e8e0ff; letter-spacing: -0.5px; }
+.cv-header-role { font-size: 14px; color: #9988cc; margin-top: 4px; }
+.cv-header-contact { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.2rem; }
+.cv-contact-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #b8a8e8; }
+.cv-contact-item i { font-size: 14px; color: #7c6bb0; }
+.photo-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px solid #6b5ab8; background: #2a2a4a; flex-shrink: 0; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; position: relative; transition: border-color 0.2s; }
+.photo-circle:hover { border-color: #9988cc; }
+.photo-circle img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; border-radius: 50%; }
+.photo-placeholder { display: flex; flex-direction: column; align-items: center; gap: 4px; pointer-events: none; }
+.photo-placeholder i { font-size: 22px; color: #7c6bb0; }
+.photo-placeholder span { font-size: 9px; color: #6b5ab8; text-align: center; line-height: 1.3; }
+#photo-input { display: none; }
+.cv-body { display: grid; grid-template-columns: 200px 1fr; }
+.cv-sidebar { background: #f8f7fe; border-right: 0.5px solid var(--color-border-tertiary); padding: 1.5rem 1.2rem; }
+.cv-main { padding: 1.5rem 1.5rem; }
+.section-title { font-size: 11px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6b5ab8; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
+.section-title i { font-size: 14px; }
+.section-divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.2rem 0; }
+.skill-bar-wrap { margin-bottom: 10px; }
+.skill-bar-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+.skill-bar-track { height: 4px; background: var(--color-border-tertiary); border-radius: 2px; overflow: hidden; }
+.skill-bar-fill { height: 100%; background: #6b5ab8; border-radius: 2px; }
+.skill-tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 20px; background: #ede9ff; color: #4a3899; margin: 3px 3px 3px 0; border: 0.5px solid #c5b9f5; }
+.hobby-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-text-secondary); margin-bottom: 8px; }
+.hobby-item i { font-size: 16px; color: #7c6bb0; }
+.exp-item { margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.exp-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+.exp-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+.exp-icon-hotel { background: #e8f4fd; color: #1a6fa8; }
+.exp-icon-music { background: #fde8f4; color: #a81a6f; }
+.exp-role { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+.exp-company { font-size: 13px; color: #6b5ab8; }
+.exp-date { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 6px; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.exp-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 0.5px solid; }
+.exp-tag-blue { background: #e6f1fb; color: #185fa5; border-color: #b5d4f4; }
+.exp-tag-pink { background: #fbeaf0; color: #993556; border-color: #f4c0d1; }
+.exp-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.edu-item { margin-bottom: 1rem; }
+.edu-degree { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.edu-school { font-size: 12px; color: #6b5ab8; }
+.edu-year { font-size: 11px; color: var(--color-text-tertiary); }
+.lang-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.lang-badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: #ede9ff; color: #4a3899; border: 0.5px solid #c5b9f5; }
+.sobre-mi { font-size: 13px; color: var(--color-text-secondary); line-height: 1.7; }
+.cv-header [contenteditable]:hover { background: rgba(255,255,255,0.1); }
+.cv-header [contenteditable]:focus { background: rgba(255,255,255,0.15); }
+.info-row { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+.info-row i { font-size: 14px; color: #7c6bb0; flex-shrink: 0; }
+</style>
+
+<div style="padding: 1rem 0 0.5rem;">
+  <div class="edit-hint">
+    <i class="ti ti-pencil" aria-hidden="true"></i>
+    Haz clic en cualquier texto para editarlo · Toca el círculo para subir tu foto
+  </div>
+</div>
+
+<input type="file" id="photo-input" accept="image/*">
+
+<div class="cv-wrap">
+
+  <div class="cv-header">
+    <div class="cv-header-info">
+      <div class="cv-header-name" contenteditable="true" spellcheck="false">Leonel Hernán Nieto</div>
+      <div class="cv-header-role" contenteditable="true" spellcheck="false">Técnico en Sistemas Microinformáticos y Redes · SMR 2º Año</div>
+      <div class="cv-header-contact">
+        <div class="cv-contact-item"><i class="ti ti-mail" aria-hidden="true"></i><span contenteditable="true">leonelhernannieto@gmail.com</span></div>
+        <div class="cv-contact-item"><i class="ti ti-phone" aria-hidden="true"></i><span contenteditable="true">+34 611 18 87 98</span></div>
+        <div class="cv-contact-item"><i class="ti ti-map-pin" aria-hidden="true"></i><span contenteditable="true">Málaga, Estepona</span></div>
+      </div>
+    </div>
+    <div class="photo-circle" id="photo-circle" title="Haz clic para subir tu foto">
+      <div class="photo-placeholder" id="photo-placeholder">
+        <i class="ti ti-user-circle" aria-hidden="true"></i>
+        <span>Tu foto</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-body">
+
+    <div class="cv-sidebar">
+
+      <div class="section-title"><i class="ti ti-id-badge" aria-hidden="true"></i>Datos personales</div>
+      <div class="info-row">
+        <i class="ti ti-calendar" aria-hidden="true"></i>
+        <span style="color: var(--color-text-tertiary); font-size: 11px; margin-right: 4px;">Nacimiento</span>
+        <span contenteditable="true" style="font-size: 12px; color: var(--color-text-secondary);">20/2/2008</span>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-user" aria-hidden="true"></i>Sobre mí</div>
+      <p class="sobre-mi" contenteditable="true">
+        Estudiante de SMR con experiencia real en entornos profesionales: sector hotelero y comercio especializado. Combino habilidades técnicas con atención al cliente, gestión y trabajo en equipo. Tengo una disponibilidad horaria flexible.&nbsp;</p>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-certificate" aria-hidden="true"></i>Idiomas</div>
+      <div class="lang-item">
+        <span style="color: var(--color-text-secondary); font-size:13px;" contenteditable="true">Español</span>
+        <span class="lang-badge">Nativo</span>
+      </div>
+      <div class="lang-item">
+        <span style="color: var(--color-text-secondary); font-size:13px;" contenteditable="true">Inglés</span>
+        <span class="lang-badge">B1 — Intermedio</span>
+      </div>
+      <div style="font-size: 11px; color: var(--color-text-tertiary); margin-top: -4px; margin-bottom: 8px; line-height: 1.5;" contenteditable="true">· Comprensión oral perfecta&nbsp;<div>· Habla fluida
+      </div></div>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-mood-smile" aria-hidden="true"></i>Hobbys</div>
+      <div class="hobby-item"><i class="ti ti-code" aria-hidden="true"></i><span contenteditable="true">-Programación personal</span></div>
+      <div class="hobby-item"><i class="ti ti-barbell" aria-hidden="true"></i><span contenteditable="true">-Gimnasio</span></div>
+      <div class="hobby-item"><i class="ti ti-books" aria-hidden="true"></i><span contenteditable="true">-Mantenimiento de equipos</span></div>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-key" aria-hidden="true"></i>Palabras clave</div>
+      <span class="skill-tag" contenteditable="true">Redes LAN/WAN</span>
+      <span class="skill-tag" contenteditable="true">TCP/IP</span>
+      <span class="skill-tag" contenteditable="true">Windows Server</span>
+      <span class="skill-tag" contenteditable="true">Linux</span>
+      <span class="skill-tag" contenteditable="true">Soporte técnico</span>
+      <span class="skill-tag" contenteditable="true">Mantenimiento HW</span>
+      <span class="skill-tag" contenteditable="true">Virtualización</span>
+      <span class="skill-tag" contenteditable="true">Atención al cliente</span>
+      <span class="skill-tag" contenteditable="true">Gestión de almacén</span>
+      <span class="skill-tag" contenteditable="true">Trato al público</span>
+      <span class="skill-tag" contenteditable="true">Active Directory</span>
+      <span class="skill-tag" contenteditable="true">Ciberseguridad</span>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-trending-up" aria-hidden="true"></i>Habilidades</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label" contenteditable="true">Redes y sistemas</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label" contenteditable="true">Soporte de equipos informáticos</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label" contenteditable="true">Atención al cliente</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label" contenteditable="true">Gestión de stock / almacén</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label" contenteditable="true">Inglés técnico y oral</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+
+    <div class="cv-main">
+
+      <div class="section-title"><i class="ti ti-briefcase" aria-hidden="true"></i>Experiencia profesional</div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-icon exp-icon-hotel"><i class="ti ti-building" aria-hidden="true"></i></div>
+          <div>
+            <div class="exp-role" contenteditable="true">Informático en prácticas · Atención al cliente</div>
+            <div class="exp-company" contenteditable="true">Hotel Villa Padierna · Marbella / Málaga</div>
+            <div class="exp-date" contenteditable="true"><br></div>
+          </div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag exp-tag-blue">Soporte IT</span>
+          <span class="exp-tag exp-tag-blue">Atención al cliente</span>
+          <span class="exp-tag exp-tag-blue">Entorno hotelero</span>
+          <span class="exp-tag exp-tag-blue">Inglés en uso</span>
+        </div>
+        <div class="exp-desc" style="margin-top: 8px;" contenteditable="true">
+          Soporte técnico informático en un entorno hotelero de lujo: mantenimiento de equipos, resolución de incidencias de red y asistencia a usuarios. Atención directa al público nacional e internacional, poniendo en práctica el inglés oral en un contexto profesional real.
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <div class="exp-icon exp-icon-music"><i class="ti ti-music" aria-hidden="true"></i></div>
+          <div>
+            <div class="exp-role" contenteditable="true">Dependiente · Informática · Gestión de almacén</div>
+            <div class="exp-company" contenteditable="true">Musisol — Tienda de música · Estepona, Málaga</div>
+            <div class="exp-date" contenteditable="true"><br></div>
+          </div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag exp-tag-pink">Atención al cliente</span>
+          <span class="exp-tag exp-tag-pink">Informática</span>
+          <span class="exp-tag exp-tag-pink">Gestión de almacén</span>
+          <span class="exp-tag exp-tag-pink">Venta y asesoramiento</span>
+        </div>
+        <div class="exp-desc" style="margin-top: 8px;" contenteditable="true">
+          Atención y asesoramiento a clientes en tienda especializada en instrumentos y equipos musicales. Gestión informática del punto de venta y control de stock. Organización y gestión del almacén: recepción de mercancía, inventario y reposición.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-school" aria-hidden="true"></i>Educación</div>
+
+      <div class="edu-item">
+        <div class="edu-degree" contenteditable="true">FP Grado Medio — Sistemas Microinformáticos y Redes (SMR)</div>
+        <div class="edu-school" contenteditable="true">IES Mar de Alborán · Estepona</div>
+        <div class="edu-year" contenteditable="true"><br><div>2020-2024</div></div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-degree" contenteditable="true">ESO — Educación Secundaria Obligatoria</div>
+        <div class="edu-school" contenteditable="true">IES Monterroso&nbsp; · Estepona</div>
+        <div class="edu-year" contenteditable="true"><br><div>2025-2026</div></div>
+      </div>
+
+      <hr class="section-divider">
+
+      <div class="section-title"><i class="ti ti-award" aria-hidden="true"></i>Cursos y certificaciones</div>
+      <div style="margin-bottom: 8px;">
+        <div class="exp-role" style="font-size:13px;" contenteditable="true">Curso de Ciberseguridad básica</div>
+        <div class="edu-year" contenteditable="true"><br></div>
+      </div>
+      <div>
+        <div class="exp-role" style="font-size:13px;" contenteditable="true">Introducción a Python</div>
+        <div class="edu-year" contenteditable="true"><br></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 1rem; display: flex; gap: 8px; flex-wrap: wrap;">
+  <button onclick="window.print()" style="font-size: 13px;">
+    <i class="ti ti-printer" aria-hidden="true"></i> Imprimir / Guardar PDF
+  </button>
+  <button onclick="sendPrompt(&#39;Dame consejos para mejorar mi currículum con experiencia en Hotel Villa Padierna y Musisol&#39;)" style="font-size: 13px;">
+    Consejos para mejorar ↗
+  </button>
+  <button onclick="sendPrompt(&#39;Escríbeme una carta de presentación basada en mi experiencia en el Hotel Villa Padierna y Musisol Estepona&#39;)" style="font-size: 13px;">
+    Carta de presentación ↗
+  </button>
+</div>
+
+<script>
+const circle = document.getElementById('photo-circle');
+const input = document.getElementById('photo-input');
+const placeholder = document.getElementById('photo-placeholder');
+circle.addEventListener('click', () => input.click());
+input.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    placeholder.style.display = 'none';
+    let img = document.getElementById('profile-photo');
+    if (!img) { img = document.createElement('img'); img.id = 'profile-photo'; circle.appendChild(img); }
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+</body></html>
